@@ -1,0 +1,25 @@
+{
+  "name": "webpackDemo",
+  "version": "1.0.0",
+  "description": "webpackDemo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhanghuidi2/webpack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhanghuidi2/webpack/issues"
+  },
+  "homepage": "https://github.com/zhanghuidi2/webpack#readme",
+  "devDependencies": {
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
+  }
+}
