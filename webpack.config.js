@@ -1,6 +1,8 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const minicss = require("mini-css-extract-plugin")
+// 需要单独导出
+const {CleanWebpackPlugin} = require("clean-webpack-plugin")
 // // webpack的0配置
 // module.exports = {
 //   entry: "./src/index.js",
@@ -36,7 +38,8 @@ module.exports = {
     list: "./src/list.js"
   },
   output: {
-    filename: "[name].js", // 占位符
+    filename: "[name]-[chunkhash:6].js", // 占位符
+    // [name].js?v=[hash]
     path: path.resolve(__dirname, "./dist") // 打包后代码存放的位置,必须是绝对路径
   },
   mode: "development",
@@ -44,56 +47,104 @@ module.exports = {
   // loader是处理webpack不能处理的文件
   // css-loader只是把css识别成chunk,序列化
   // style-loader在html头部动态添加一个style标签，把chunk插入
-  resolveLoader: {
-    modules: ["node_modules", "./myLoaders"]
-  },
+  // resolveLoader: {
+  //   modules: ["node_modules", "./myLoaders"]
+  // },
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: ["style-loader","css-loader"], // 从后往前，先编译成chunk，再把css插入到dom中
+        use: [minicss.loader,"css-loader"], // 从后往前，先编译成chunk，再把css插入到dom中
       },
       {
         test: /\.less$/,
-        use: [
-          "kkb-style-loader","kkb-css-loader", "kkb-less-loader"
-        ]
         // use: [
-        //   minicss.loader,
-        //   // "style-loader",
-        //   "css-loader",
-        //   "postcss-loader",
-        //   {
-        //     loader: "less-loader",
-        //     options: {
-        //       sourceMap: true
-        //     }
-        //   }
-        // ], // 从后往前，先编译成chunk，再把css插入到dom中
+        //   "kkb-style-loader","kkb-css-loader", "kkb-less-loader"
+        // ]
+        use: [
+          minicss.loader,
+          // "style-loader",
+          "css-loader",
+          "postcss-loader",
+          {
+            loader: "less-loader",
+            options: {
+              sourceMap: true
+            }
+          }
+        ], // 从后往前，先编译成chunk，再把css插入到dom中
       },
       // {
       //   test: /\.js$/,
       //   use: path.resolve(__dirname, "./myLoaders/replace-loader.js")
       // },
+      // {
+      //   test: /\.js$/,
+      //   use: {
+      //     loader: "replace-loader",
+      //     options: {
+      //       name: 'hhhhhhh'
+      //     }
+      //   }
+      // },
+      // {
+      //   test: /\.(png|jpe?g|gif)$/,
+      //   use: [
+      //     {
+      //       loader: 'file-loader', // 在src下面引用图片还按照相对路径，这个loader会把图片转化成url
+      //       options: {
+      //         name: "[name].[ext]", // 生成图片的名字
+      //         outputPath: "images/", // 图片的输出地址
+      //         publicPath: "../images/" // 图片的引用地址
+      //       },
+      //     },
+      //   ],
+      // },
       {
-        test: /\.js$/,
-        use: {
-          loader: "replace-loader",
-          options: {
-            name: 'hhhhhhh'
-          }
-        }
-      }
+        test: /\.(png|jpe?g|gif)$/,
+        use: [
+          {
+            loader: 'url-loader', // 是file-loader的加强版
+            options: {
+              name: "[name].[ext]", // 生成图片的名字
+              outputPath: "images/", // 图片的输出地址
+              publicPath: "../images/", // 图片的引用地址
+              limit: 1024 * 100 // 9kb ，在这个范围内是base64
+            },
+          },
+        ],
+      },
+      {
+        test: /\.woff2$/,
+        use: [
+          {
+            loader: 'file-loader', // 是file-loader的加强版
+            options: {
+              name: "[name].[ext]", // 生成图片的名字
+              outputPath: "css/", // 图片的输出地址
+              publicPath: "../css/", // 图片的引用地址
+            },
+          },
+        ],
+      },
     ],
   },
   // plugin 插件 是webpack的功能扩展
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
-      filename: 'index.html'
-    }),
+      filename: 'index.html',
+      chunks: ["index"]
+    }), // 生成的html会自动引入同级的js和css
+    new HtmlWebpackPlugin({
+      template: './src/list.html',
+      filename: 'list.html',
+      chunks: ["list"]
+    }), // 生成的html会自动引入同级的js和css
     new minicss({
-      filename: "[name].css", // 占位符，会和src里的名字保持一致
-  })]
+      filename: "css/[name]-[chunkhash:6].css", // 单独的生成css文件占位符，不走style-loader，会和src里的名字保持一致
+    }),
+    new CleanWebpackPlugin()
+  ]
 
 }
