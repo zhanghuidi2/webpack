@@ -129,6 +129,22 @@ module.exports = {
       },
     ],
   },
+  devtool: "source-map", // inline-source-map,map文件不在以独立文件的方式存在，放到boudle文件的最后
+  // inline-cheap-source-map 只用告诉在哪一行，不用告诉在哪一列
+  // inline-cheap-moudule-source-map 第三方模块的错误信息
+  devServer: {
+    contentBase: './dist',
+    port: 8081,
+    open: true,
+    proxy: {
+      "/api": {
+        target: "http://localhost:9002"
+      }
+    }
+  },
+
+
+
   // plugin 插件 是webpack的功能扩展
   plugins: [
     new HtmlWebpackPlugin({

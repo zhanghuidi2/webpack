@@ -25,3 +25,7 @@ img.src = pic
 const app = document.getElementById('app');
 console.log(app, 'app')
 // app.append(img)
+import axios from 'axios'
+axios.get('/api/inof').then(res => {
+  console.log('=======')
+})
