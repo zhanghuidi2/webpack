@@ -2,7 +2,8 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const minicss = require("mini-css-extract-plugin")
 // 需要单独导出
-const {CleanWebpackPlugin} = require("clean-webpack-plugin")
+const { CleanWebpackPlugin } = require("clean-webpack-plugin")
+const webpack = require('webpack')
 // // webpack的0配置
 // module.exports = {
 //   entry: "./src/index.js",
@@ -38,7 +39,7 @@ module.exports = {
     list: "./src/list.js"
   },
   output: {
-    filename: "[name]-[chunkhash:6].js", // 占位符
+    filename: "[name].js", // 占位符
     // [name].js?v=[hash]
     path: path.resolve(__dirname, "./dist") // 打包后代码存放的位置,必须是绝对路径
   },
@@ -54,7 +55,7 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: [minicss.loader,"css-loader"], // 从后往前，先编译成chunk，再把css插入到dom中
+        use: ["style-loader","css-loader"], // 从后往前，先编译成chunk，再把css插入到dom中
       },
       {
         test: /\.less$/,
@@ -127,15 +128,34 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /.\js/,
+        use: {
+          loader: 'babel-loader', // babel是一个工具，所以要使用编译es5还需要安装插件
+          options: {
+            presets: [
+              ["@babel/preset-env", {
+              // targets: {
+              //   edge: '17',
+              //   chrome: '67'
+              // },
+              // corejs: 2,
+              useBuiltIns: "usage"
+            }]]
+          }
+        }
+      }
     ],
   },
-  devtool: "source-map", // inline-source-map,map文件不在以独立文件的方式存在，放到boudle文件的最后
+  // devtool: "source-map", // inline-source-map,map文件不在以独立文件的方式存在，放到boudle文件的最后
   // inline-cheap-source-map 只用告诉在哪一行，不用告诉在哪一列
   // inline-cheap-moudule-source-map 第三方模块的错误信息
   devServer: {
     contentBase: './dist',
     port: 8081,
     open: true,
+    hot: true,
+    hotOnly: true, // 修改js的时候浏览器还会刷新，浏览器不让自动刷新
     proxy: {
       "/api": {
         target: "http://localhost:9002"
@@ -158,9 +178,10 @@ module.exports = {
       chunks: ["list"]
     }), // 生成的html会自动引入同级的js和css
     new minicss({
-      filename: "css/[name]-[chunkhash:6].css", // 单独的生成css文件占位符，不走style-loader，会和src里的名字保持一致
+      filename: "css/[name].css", // 单独的生成css文件占位符，不走style-loader，会和src里的名字保持一致
     }),
-    new CleanWebpackPlugin()
+    new CleanWebpackPlugin(),
+    new webpack.HashedModuleIdsPlugin()
   ]
 
 }

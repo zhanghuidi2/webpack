@@ -1,3 +1,5 @@
+// import "@babel/polyfill"
+
 // import css from  './index.css'
 import css from './css/index.css'
 // import css from './css/index.less'
@@ -19,13 +21,44 @@ console.log(a,'开课吧44ww')
 import pic from './file.png'
 console.log(pic) // f935a8a44bc09edab8836ef61f7e606c.png这个就是使用file-loader之后的图片地址
 // 图片的使用方式，js dom
+// const img = new Image()
+// img.src = pic
+// const app = document.getElementById('app');
+// console.log(app, 'app')
+// // app.append(img)
 
-const img = new Image()
-img.src = pic
-const app = document.getElementById('app');
-console.log(app, 'app')
-// app.append(img)
-import axios from 'axios'
-axios.get('/api/inof').then(res => {
-  console.log('=======')
+
+
+// dev-server
+// import axios from 'axios'
+// axios.get('/api/inof').then(res => {
+//   console.log('=======')
+// })
+
+
+// css模块HMR
+// var btn = document.createElement('button')
+// btn.innerHTML = '新增'
+// document.body.appendChild(btn)
+// btn.onclick = function () {
+//   var div = document.createElement('div')
+//   div.innerHTML = 'item'
+//   document.body.appendChild(div)
+// }
+
+// js模块HMR
+
+// import couter from './counter'
+// import number from './number'
+// couter()
+// number()
+
+
+// babel
+const arr = [1, 2, 3]
+const newArr = arr.map(item => item * 8)
+console.log(newArr)
+
+Promise.resolve(res => {
+  console.log(9)
 })
