@@ -4,6 +4,7 @@ const minicss = require("mini-css-extract-plugin")
 // 需要单独导出
 const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 const webpack = require('webpack')
+
 // // webpack的0配置
 // module.exports = {
 //   entry: "./src/index.js",
