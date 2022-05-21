@@ -1,3 +1,5 @@
 body{
+  /* background-image: url(./images/file.png); */
+  background-image: url(./file.png); 
   background-color: red;
 }

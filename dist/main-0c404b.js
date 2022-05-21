@@ -86,27 +86,15 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/css/index.less":
-/*!****************************!*\
-  !*** ./src/css/index.less ***!
-  \****************************/
+/***/ "./src/test.css":
+/*!**********************!*\
+  !*** ./src/test.css ***!
+  \**********************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack:///./src/css/index.less?");
-
-/***/ }),
-
-/***/ "./src/file.png":
-/*!**********************!*\
-  !*** ./src/file.png ***!
-  \**********************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = (__webpack_require__.p + \"7265b6f0400532221d01043a369b9099.png\");\n\n//# sourceURL=webpack:///./src/file.png?");
+eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack:///./src/test.css?");
 
 /***/ }),
 
@@ -118,7 +106,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ 
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _test3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./test3 */ \"./src/test3.js\");\n/* harmony import */ var _css_index_less__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./css/index.less */ \"./src/css/index.less\");\n/* harmony import */ var _file_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./file.png */ \"./src/file.png\");\nconsole.log('hello', 'word')\n\nconsole.log(_test3__WEBPACK_IMPORTED_MODULE_0__[\"default\"])\n// import css from './css/index.css'\n\n\n\n//# sourceURL=webpack:///./src/test.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _test3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./test3 */ \"./src/test3.js\");\n/* harmony import */ var _test_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./test.css */ \"./src/test.css\");\nconsole.log('hello', 'word')\n\nconsole.log(_test3__WEBPACK_IMPORTED_MODULE_0__[\"default\"])\n\nconsole.log(_test_css__WEBPACK_IMPORTED_MODULE_1__[\"default\"])\n// import css from './css/index.css'\n// import less from './css/index.less'\n// import img from './file.png'\n// const Img = document.createElement('img')\n// Img.src = img\n// const app = document.getElementById('app')\n// app.appendChild(Img)\n\n//# sourceURL=webpack:///./src/test.js?");
 
 /***/ }),
 
