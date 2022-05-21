@@ -89,33 +89,33 @@ module.exports = {
       //     }
       //   }
       // },
-      // {
-      //   test: /\.(png|jpe?g|gif)$/,
-      //   use: [
-      //     {
-      //       loader: 'file-loader', // 在src下面引用图片还按照相对路径，这个loader会把图片转化成url
-      //       options: {
-      //         name: "[name].[ext]", // 生成图片的名字
-      //         outputPath: "images/", // 图片的输出地址
-      //         publicPath: "../images/" // 图片的引用地址
-      //       },
-      //     },
-      //   ],
-      // },
       {
         test: /\.(png|jpe?g|gif)$/,
         use: [
           {
-            loader: 'url-loader', // 是file-loader的加强版
+            loader: 'file-loader', // 在src下面引用图片还按照相对路径，这个loader会把图片转化成url
             options: {
               name: "[name].[ext]", // 生成图片的名字
-              outputPath: "images/", // 图片的输出地址
-              publicPath: "../images/", // 图片的引用地址
-              limit: 1024 * 100 // 9kb ，在这个范围内是base64
+              outputPath: "static/img/", // 图片的输出地址
+              // publicPath: "../images/" // 图片的引用地址
             },
           },
         ],
       },
+      // {
+      //   test: /\.(png|jpe?g|gif)$/,
+      //   use: [
+      //     {
+      //       loader: 'url-loader', // 是file-loader的加强版
+      //       options: {
+      //         name: "[name].[ext]", // 生成图片的名字
+      //         outputPath: "images/", // 图片的输出地址
+      //         publicPath: "../images/", // 图片的引用地址
+      //         limit: 1024 * 100 // 9kb ，在这个范围内是base64
+      //       },
+      //     },
+      //   ],
+      // },
       {
         test: /\.woff2$/,
         use: [

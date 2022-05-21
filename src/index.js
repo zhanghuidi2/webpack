@@ -18,7 +18,7 @@ console.log(a,'开课吧44ww')
 
 
   // 静态资源
-import pic from './file.png'
+import pic from './images/file.png'
 console.log(pic) // f935a8a44bc09edab8836ef61f7e606c.png这个就是使用file-loader之后的图片地址
 // 图片的使用方式，js dom
 // const img = new Image()
