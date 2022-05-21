@@ -1,2 +1,4 @@
-last 1 version
-> 1%
+last 4 version # 最近的2个版本
+> 1% # 市场占有率为1%
+# 在安装postcss-loader的插件的同时，postcss的插件有两种方式引入，单独的postcss.config.js文件，或者在webpack.config.js
+# 这个浏览器版本是因为安装了autoprefixer
