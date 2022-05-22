@@ -16,6 +16,27 @@ module.exports = {
     modules: ['node_modules', 'SelfLoaders']
   },
 
+  // devtool: 'source-map', // ! 打印错误日志，精确定位，eval-cheap-source-map
+  
+  // ! devServer的作用
+  // ! 第一个托管webpack,接手webpack的工作
+  // ! 第二个热更新，其实就是相当于帮助你手动刷新了一次，之前保存的数据都会丢失，每次修改文件，devServer会自动构建build，文件虽然不在dist里是放到了内存中，这样会读取文件更快，修改文件浏览器会快速更新
+  // ! 如果需要保留之前的用户操作痕迹，那么就要hot: true
+
+  // !! HMR 热模块替换 第一： 存在cssHMR 和 jsHMR; 第二： 不支持chunk-hash和content-hash
+  devServer: {
+    contentBase: './dist',
+    port: 8081,
+    open: true,
+    // hot: true,
+    // hotOnly: true, // 修改js的时候浏览器还会刷新，浏览器不让自动刷新
+    proxy: {
+      "/api": {
+        target: "http://localhost:9002"
+      }
+    }
+  },
+
   // 多文件应用
   // module,一个模块一个chunk, 一个出口文件一个chunks,一个chunks至少包含一个chunk
   // entry: {
@@ -104,7 +125,7 @@ module.exports = {
     // ! contentHash 只喝自己的变动有关，只有本身的文件变动，hash才会变
     // ! chunkHash 只和引用打包到一个chunks的变动关联文件有关
     // ! hash，整个项目不论哪里改动，他都要改变, 整体和出口文件保持一致
-    
+
     // ! 第一步引入插件， 并且打包后的filename命名一下
     // ! 第二部，替换style-loader -> minicss.loader (这个插件本身自带的loader)
     new CleanWebpackPlugin()

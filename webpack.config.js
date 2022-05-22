@@ -36,8 +36,8 @@ const webpack = require('webpack')
 // chunk代码片段
 module.exports = {
   entry: {
-    index: "./src/index.js",
-    list: "./src/list.js"
+    index: "./src/test.js",
+    // list: "./src/list.js"
   },
   output: {
     filename: "[name].js", // 占位符
@@ -116,36 +116,36 @@ module.exports = {
       //     },
       //   ],
       // },
-      {
-        test: /\.woff2$/,
-        use: [
-          {
-            loader: 'file-loader', // 是file-loader的加强版
-            options: {
-              name: "[name].[ext]", // 生成图片的名字
-              outputPath: "css/", // 图片的输出地址
-              publicPath: "../css/", // 图片的引用地址
-            },
-          },
-        ],
-      },
-      {
-        test: /.\js/,
-        use: {
-          loader: 'babel-loader', // babel是一个工具，所以要使用编译es5还需要安装插件
-          options: {
-            presets: [
-              ["@babel/preset-env", {
-              // targets: {
-              //   edge: '17',
-              //   chrome: '67'
-              // },
-              // corejs: 2,
-              useBuiltIns: "usage"
-            }]]
-          }
-        }
-      }
+      // {
+      //   test: /\.woff2$/,
+      //   use: [
+      //     {
+      //       loader: 'file-loader', // 是file-loader的加强版
+      //       options: {
+      //         name: "[name].[ext]", // 生成图片的名字
+      //         outputPath: "css/", // 图片的输出地址
+      //         publicPath: "../css/", // 图片的引用地址
+      //       },
+      //     },
+      //   ],
+      // },
+      // {
+      //   test: /.\js/,
+      //   use: {
+      //     loader: 'babel-loader', // babel是一个工具，所以要使用编译es5还需要安装插件
+      //     options: {
+      //       presets: [
+      //         ["@babel/preset-env", {
+      //         // targets: {
+      //         //   edge: '17',
+      //         //   chrome: '67'
+      //         // },
+      //         // corejs: 2,
+      //         useBuiltIns: "usage"
+      //       }]]
+      //     }
+      //   }
+      // }
     ],
   },
   // devtool: "source-map", // inline-source-map,map文件不在以独立文件的方式存在，放到boudle文件的最后
@@ -156,7 +156,7 @@ module.exports = {
     port: 8081,
     open: true,
     hot: true,
-    hotOnly: true, // 修改js的时候浏览器还会刷新，浏览器不让自动刷新
+    hotOnly: true, // 修改js的时候浏览器还会刷新，此时记录是保存不住的，所以要浏览器不让自动刷新，然后自己监控
     proxy: {
       "/api": {
         target: "http://localhost:9002"
@@ -169,20 +169,20 @@ module.exports = {
   // plugin 插件 是webpack的功能扩展
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
+      template: './src/test.html',
       filename: 'index.html',
       chunks: ["index"]
     }), // 生成的html会自动引入同级的js和css
-    new HtmlWebpackPlugin({
-      template: './src/list.html',
-      filename: 'list.html',
-      chunks: ["list"]
-    }), // 生成的html会自动引入同级的js和css
+    // new HtmlWebpackPlugin({
+    //   template: './src/list.html',
+    //   filename: 'list.html',
+    //   chunks: ["list"]
+    // }), // 生成的html会自动引入同级的js和css
     new minicss({
       filename: "css/[name].css", // 单独的生成css文件占位符，不走style-loader，会和src里的名字保持一致
     }),
     new CleanWebpackPlugin(),
-    new webpack.HashedModuleIdsPlugin()
+    // new webpack.HashedModuleIdsPlugin()
   ]
 
 }
