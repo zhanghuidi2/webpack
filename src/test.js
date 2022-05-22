@@ -20,3 +20,11 @@ btn.onclick = function () {
 
   body.appendChild(div)
 }
+
+const a = () => {
+  return new Promise((resolve, reject) => {
+    resolve(2)
+  })
+}
+
+// 

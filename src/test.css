@@ -6,5 +6,5 @@ body{
   
 }
 div:nth-of-type(odd) {
-  background-color:red;
+  background-color:black;
 }

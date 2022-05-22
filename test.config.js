@@ -91,18 +91,38 @@ module.exports = {
         test: /.\js/,
         use: [
           // !自定义插件 引入path.resolve， 或者使用resolveLoader
+          // {
+          //   // loader: path.resolve(__dirname, './SelfLoaders/replace-loader.js'),
+          //   loader: 'replace-loader',
+          //   options: {
+          //     name: 'hello'
+          //   }
+          // },
+          // {
+          //   // loader: path.resolve(__dirname, './SelfLoaders/replace-loader-async.js'),
+          //   loader: 'replace-loader-async',
+          //   options: {
+          //     name: 'word'
+          //   }
+          // }
+          // ! 处理es6的语法使用preset-env， const, () =>
+          // ! 处理es6的新特性需要在入口文件的js引入polyfill, 但是全部引入会导致体积过大，所以会用按需引入
           {
-            // loader: path.resolve(__dirname, './SelfLoaders/replace-loader.js'),
-            loader: 'replace-loader',
+            loader: 'babel-loader',
             options: {
-              name: 'hello'
-            }
-          },
-          {
-            // loader: path.resolve(__dirname, './SelfLoaders/replace-loader-async.js'),
-            loader: 'replace-loader-async',
-            options: {
-              name: 'word'
+              // ! 可以单独抽离.babelrc文件
+              presets: [
+                  ["@babel/preset-env", {
+                  // targets: {
+                  //   edge: '17',
+                  //   chrome: '67'
+                  // },
+                  // corejs: 2,
+                    useBuiltIns: "usage" 
+                    // ! useBuiltIns有3个选项， entry，需要在入口文件的js引入polyfill，只会加载一次。导出响应的垫片
+                    // ! usage,自动检测，按需引入
+                    // ! 默认值是false, 啥优化也不干
+                }]]
             }
           }
         ]
